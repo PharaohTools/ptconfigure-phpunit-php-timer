@@ -69,12 +69,12 @@ class PHP_Timer
     /**
      * @var array
      */
-    private $startTimes = array();
+    private static $startTimes = array();
 
     /**
      * @var float
      */
-    private $requestTime;
+    private static $requestTime;
 
     /**
      * Constructor
@@ -82,11 +82,11 @@ class PHP_Timer
     public function __construct()
     {
         if (isset($_SERVER['REQUEST_TIME_FLOAT'])) {
-            $this->requestTime = $_SERVER['REQUEST_TIME_FLOAT'];
+            self::$requestTime = $_SERVER['REQUEST_TIME_FLOAT'];
         }
 
         else {
-            $this->requestTime = microtime(TRUE);
+            self::$requestTime = microtime(TRUE);
         }
     }
 
@@ -95,7 +95,7 @@ class PHP_Timer
      */
     public function start()
     {
-        array_push($this->startTimes, microtime(TRUE));
+        array_push(self::$startTimes, microtime(TRUE));
     }
 
     /**
@@ -105,7 +105,7 @@ class PHP_Timer
      */
     public function stop()
     {
-        return microtime(TRUE) - array_pop($this->startTimes);
+        return microtime(TRUE) - array_pop(self::$startTimes);
     }
 
     /**
@@ -135,7 +135,7 @@ class PHP_Timer
      */
     public function timeSinceStartOfRequest()
     {
-        return $this->secondsToTimeString(microtime(TRUE) - $this->requestTime);
+        return $self::secondsToTimeString(microtime(TRUE) - self::$requestTime);
     }
 
     /**
