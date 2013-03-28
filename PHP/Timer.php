@@ -147,7 +147,7 @@ class PHP_Timer
     {
         return sprintf(
           'Time: %s, Memory: %4.2fMb',
-          $this->timeSinceStartOfRequest(),
+          self::timeSinceStartOfRequest(),
           memory_get_peak_usage(TRUE) / 1048576
         );
     }
